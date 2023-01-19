@@ -9,4 +9,4 @@ const s: string = readline();
 // Write an answer using console.log()
 // To debug: console.error('Debug messages...');
 
-console.log("Hello World !");
+console.log("Hello World... ...................!"[Symbol];
