@@ -17,27 +17,38 @@ for (let i = 0; i < n; i++) {
 }
 console.error(coder);
 
-const str = readline();
-let countStart = 0;
-let res = "";
+if (Object.keys(coder).length === 0) {
+  console.log("DECODE FAIL AT INDEX 0");
+} else {
+  const str = readline();
+  let countStart = 0;
+  let res = "";
 
-console.error(str);
+  console.error(str);
 
-while (countStart < str.length) {
-  let countEnd = countStart;
-  let letterFound = false;
-  // console.log({countStart, countEnd})
-  while (letterFound === false) {
-    let letter = coder[str.substring(countStart, countEnd)];
-    if (letter) {
-      res += letter;
-      letterFound = true;
-      countStart += countEnd - countStart;
-      console.error(countStart);
-    } else {
-      countEnd++;
+  let hasError = false;
+
+  while (countStart < str.length || !hasError) {
+    let countEnd = countStart;
+    let letterFound = false;
+    // console.log({countStart, countEnd})
+    while (letterFound === false || !hasError) {
+      let letter = coder[str.substring(countStart, countEnd)];
+      if (letter) {
+        res += letter;
+        letterFound = true;
+        countStart += countEnd - countStart;
+        console.error(countStart);
+      } else {
+        if (countEnd > str.length + 1) {
+          hasError = true;
+          console.log("DECODE FAIL AT INDEX " + countStart);
+        } else {
+          countEnd++;
+        }
+      }
     }
   }
-}
 
-console.log(res);
+  if (!hasError) console.log(res);
+}
